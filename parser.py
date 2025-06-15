@@ -22,13 +22,10 @@ def parse_id():
             response = requests.get(url)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
-
-            # Проверяем наличие ошибки "Указанный профиль не найден"
             error_message = soup.find('h3', class_='custom-cursor-default-hover')
             if error_message and "Указанный профиль не найден" in error_message.text:
                 cool_ids.append(steam_id)
                 print(steam_id)
-            # Дополнительная проверка на страницу с ошибкой
             elif soup.find('div', class_='error_ctn'):
                 cool_ids.append(steam_id)
                 print(steam_id)
